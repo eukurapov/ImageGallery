@@ -7,8 +7,6 @@
 
 import UIKit
 
-private let reuseIdentifier = "ImageCell"
-
 class ImageGalleryViewController: UICollectionViewController, UICollectionViewDragDelegate, UICollectionViewDropDelegate {
     
     override func viewDidLoad() {
@@ -69,7 +67,12 @@ class ImageGalleryViewController: UICollectionViewController, UICollectionViewDr
     // MARK: - UICollectionViewDropDelegate
     
     func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
-        return session.canLoadObjects(ofClass: UIImage.self)
+        let isSelf = (session.localDragSession?.localContext as? UICollectionView) == collectionView
+        if isSelf {
+            return session.canLoadObjects(ofClass: UIImage.self)
+        } else {
+            return session.canLoadObjects(ofClass: UIImage.self) && session.canLoadObjects(ofClass: URL.self)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
@@ -90,10 +93,28 @@ class ImageGalleryViewController: UICollectionViewController, UICollectionViewDr
                     })
                     coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
                 }
+            } else {
+                let placeholderContext = coordinator.drop(item.dragItem, to: UICollectionViewDropPlaceholder(insertionIndexPath: destinationIndexPath, reuseIdentifier: self.placeholderReuseIdentifier))
+                item.dragItem.itemProvider.loadObject(ofClass: NSURL.self) { (provider, error) in
+                    DispatchQueue.main.async {
+                        if let url = provider as? URL {
+                            print(url)
+                            placeholderContext.commitInsertion { indexPath in
+                                self.images.insert(url, at: indexPath.item)
+                            }
+                        } else {
+                            placeholderContext.deletePlaceholder()
+                        }
+                    }
+                }
             }
         }
     }
     
-
+    // MARK: - Constant values
+    
+    private let reuseIdentifier = "ImageCell"
+    private let placeholderReuseIdentifier = "PlaceholderCell"
+    
 }
 

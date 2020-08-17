@@ -21,12 +21,11 @@ class ImageCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     private func fetchImage() {
+        self.imageView.image = nil
         if let urlToFetch = self.url {
-            self.imageView.image = nil
             activityIndicator.startAnimating()
             URLSession.shared.dataTask(with: urlToFetch) { (data, response, error) in
                 DispatchQueue.main.async {
-                    print(urlToFetch)
                     if urlToFetch == self.url {
                         if data != nil, let image = UIImage(data: data!) {
                             self.imageView.image = image

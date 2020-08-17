@@ -23,7 +23,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ImageCell" reuseIdentifier="ImageCell" id="oqD-dY-c6A" customClass="ImageCollectionViewCell" customModule="ImageGallery" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="oqD-dY-c6A" customClass="ImageCollectionViewCell" customModule="ImageGallery" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="216" height="216"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="pcu-5k-kUf">
@@ -55,6 +55,45 @@
                                     <outlet property="activityIndicator" destination="KNn-Ri-lAD" id="4lE-vT-D8h"/>
                                     <outlet property="imageView" destination="4YB-XK-INv" id="sSP-d6-D0D"/>
                                 </connections>
+                            </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="PlaceholderCell" id="jkt-jD-aDx">
+                                <rect key="frame" x="226" y="8" width="200" height="200"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="1TZ-FQ-dlE">
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wNC-PR-rLx">
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="200" id="KLO-SF-2GC"/>
+                                                <constraint firstAttribute="height" constant="200" id="lNq-DQ-rSL"/>
+                                            </constraints>
+                                        </view>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="mQk-82-FGA">
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                            <color key="color" name="AccentColor"/>
+                                        </activityIndicatorView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="mQk-82-FGA" firstAttribute="centerY" secondItem="1TZ-FQ-dlE" secondAttribute="centerY" id="217-YF-HVN"/>
+                                        <constraint firstItem="mQk-82-FGA" firstAttribute="leading" secondItem="1TZ-FQ-dlE" secondAttribute="leading" id="4dp-Qu-Ml0"/>
+                                        <constraint firstItem="wNC-PR-rLx" firstAttribute="leading" secondItem="1TZ-FQ-dlE" secondAttribute="leading" id="7wD-ec-NGZ"/>
+                                        <constraint firstItem="wNC-PR-rLx" firstAttribute="top" secondItem="1TZ-FQ-dlE" secondAttribute="top" id="8uV-X6-vPZ"/>
+                                        <constraint firstItem="wNC-PR-rLx" firstAttribute="top" secondItem="1TZ-FQ-dlE" secondAttribute="top" id="9H3-Eb-HNS"/>
+                                        <constraint firstAttribute="bottom" secondItem="wNC-PR-rLx" secondAttribute="bottom" id="A3b-Fa-VQz"/>
+                                        <constraint firstAttribute="bottom" secondItem="mQk-82-FGA" secondAttribute="bottom" id="HKV-mi-O4h"/>
+                                        <constraint firstAttribute="trailing" secondItem="wNC-PR-rLx" secondAttribute="trailing" id="Nl3-lj-StD"/>
+                                        <constraint firstItem="mQk-82-FGA" firstAttribute="centerX" secondItem="1TZ-FQ-dlE" secondAttribute="centerX" id="Po9-UL-ers"/>
+                                        <constraint firstItem="mQk-82-FGA" firstAttribute="top" secondItem="1TZ-FQ-dlE" secondAttribute="top" id="Raz-B2-PS3"/>
+                                        <constraint firstItem="wNC-PR-rLx" firstAttribute="leading" secondItem="1TZ-FQ-dlE" secondAttribute="leading" id="SCj-O1-lf1"/>
+                                        <constraint firstAttribute="trailing" secondItem="wNC-PR-rLx" secondAttribute="trailing" id="VKB-Cy-yyI"/>
+                                        <constraint firstAttribute="trailing" secondItem="mQk-82-FGA" secondAttribute="trailing" id="vY1-2D-q0u"/>
+                                        <constraint firstAttribute="bottom" secondItem="wNC-PR-rLx" secondAttribute="bottom" id="vh0-hf-bow"/>
+                                    </constraints>
+                                </collectionViewCellContentView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <size key="customSize" width="200" height="200"/>
                             </collectionViewCell>
                         </cells>
                         <connections>
