@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8v4-5Q-c1L">
+    <device id="ipad9_7" orientation="landscape" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Image Gallery-->
+        <scene sceneID="Kqm-4s-7XN">
+            <objects>
+                <collectionViewController id="rZE-qu-aMO" customClass="ImageGalleryViewController" customModule="ImageGallery" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="TopLeft" dataMode="prototypes" id="mlH-b9-YRV">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LKg-wD-b5f">
+                            <size key="itemSize" width="128" height="128"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ImageCell" reuseIdentifier="ImageCell" id="oqD-dY-c6A" customClass="ImageCollectionViewCell" customModule="ImageGallery" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="216" height="216"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="pcu-5k-kUf">
+                                    <rect key="frame" x="0.0" y="0.0" width="216" height="216"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4YB-XK-INv">
+                                            <rect key="frame" x="8" y="8" width="200" height="200"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="200" id="2Jd-kS-a6B"/>
+                                                <constraint firstAttribute="width" secondItem="4YB-XK-INv" secondAttribute="height" multiplier="1:1" id="ctM-LX-QF9"/>
+                                            </constraints>
+                                        </imageView>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="KNn-Ri-lAD">
+                                            <rect key="frame" x="98" y="98" width="20" height="20"/>
+                                            <color key="color" name="AccentColor"/>
+                                        </activityIndicatorView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="4YB-XK-INv" secondAttribute="bottom" constant="8" id="C8L-3n-ELv"/>
+                                        <constraint firstItem="4YB-XK-INv" firstAttribute="leading" secondItem="pcu-5k-kUf" secondAttribute="leading" constant="8" id="aY3-JP-JCB"/>
+                                        <constraint firstItem="KNn-Ri-lAD" firstAttribute="centerY" secondItem="pcu-5k-kUf" secondAttribute="centerY" id="fwb-Tn-Mba"/>
+                                        <constraint firstAttribute="trailing" secondItem="4YB-XK-INv" secondAttribute="trailing" constant="8" id="lRr-0u-fDN"/>
+                                        <constraint firstItem="4YB-XK-INv" firstAttribute="top" secondItem="pcu-5k-kUf" secondAttribute="top" constant="8" id="nec-yh-5R0"/>
+                                        <constraint firstItem="KNn-Ri-lAD" firstAttribute="centerX" secondItem="pcu-5k-kUf" secondAttribute="centerX" id="q7f-cz-1Hh"/>
+                                    </constraints>
+                                </collectionViewCellContentView>
+                                <connections>
+                                    <outlet property="activityIndicator" destination="KNn-Ri-lAD" id="4lE-vT-D8h"/>
+                                    <outlet property="imageView" destination="4YB-XK-INv" id="sSP-d6-D0D"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="rZE-qu-aMO" id="ay3-lR-wVo"/>
+                            <outlet property="delegate" destination="rZE-qu-aMO" id="gqd-5h-SWM"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" title="Image Gallery" id="Inn-PS-H96"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FKF-h9-9kY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="561.9140625" y="17.1875"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="GPu-dr-c3k">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8v4-5Q-c1L" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="urF-Fn-Sf3">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="rZE-qu-aMO" kind="relationship" relationship="rootViewController" id="HrQ-W6-SkK"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hhd-Dp-ELd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-162.3046875" y="16.40625"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
