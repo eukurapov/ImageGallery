@@ -11,6 +11,9 @@ class ImageGalleryViewController: UICollectionViewController, UICollectionViewDr
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = gallery.name
+        
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.dragDelegate = self
@@ -19,13 +22,7 @@ class ImageGalleryViewController: UICollectionViewController, UICollectionViewDr
     
     // MARK: - Model
     
-    private var images: [URL] = {
-        if let url = URL(string: "https://images.indianexpress.com/2020/06/astronuat-space-pixabay-759.jpg"),
-            let anotherUrl = URL(string: "https://www.awesomeinventions.com/wp-content/uploads/2019/06/NASA-photos-online-space-universe.png") {
-            return [url,anotherUrl,anotherUrl,url,anotherUrl,url,anotherUrl,url,anotherUrl,url]
-        }
-        return []
-    }()
+    var gallery = IGGallery(name: "Unnamed")
 
     /*
     // MARK: - Navigation
@@ -40,14 +37,14 @@ class ImageGalleryViewController: UICollectionViewController, UICollectionViewDr
     // MARK: - UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return gallery.images.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         if let imageCell = cell as? ImageCollectionViewCell {
-            let url = images[indexPath.item]
-            imageCell.url = url
+            let image = gallery.images[indexPath.item]
+            imageCell.url = image.url
         }
         return cell
     }
@@ -58,7 +55,7 @@ class ImageGalleryViewController: UICollectionViewController, UICollectionViewDr
         session.localContext = collectionView
         if let image = (collectionView.cellForItem(at: indexPath) as? ImageCollectionViewCell)?.imageView.image {
             let dragItem = UIDragItem(itemProvider: NSItemProvider(object: image))
-            dragItem.localObject = images[indexPath.item]
+            dragItem.localObject = gallery.images[indexPath.item]
             return [dragItem]
         }
         return []
@@ -84,10 +81,10 @@ class ImageGalleryViewController: UICollectionViewController, UICollectionViewDr
         let destinationIndexPath = coordinator.destinationIndexPath ?? IndexPath(item: 0, section: 0)
         for item in coordinator.items {
             if let sourceIndexPath = item.sourceIndexPath {
-                if let imageURL = item.dragItem.localObject as? URL {
+                if let image = item.dragItem.localObject as? IGImage {
                     collectionView.performBatchUpdates({
-                        images.remove(at: sourceIndexPath.item)
-                        images.insert(imageURL, at: destinationIndexPath.item)
+                        gallery.images.remove(at: sourceIndexPath.item)
+                        gallery.images.insert(image, at: destinationIndexPath.item)
                         collectionView.deleteItems(at: [sourceIndexPath])
                         collectionView.insertItems(at: [destinationIndexPath])
                     })
@@ -100,7 +97,7 @@ class ImageGalleryViewController: UICollectionViewController, UICollectionViewDr
                         if let url = provider as? URL {
                             print(url)
                             placeholderContext.commitInsertion { indexPath in
-                                self.images.insert(url, at: indexPath.item)
+                                self.gallery.images.insert(IGImage(url: url), at: indexPath.item)
                             }
                         } else {
                             placeholderContext.deletePlaceholder()

@@ -64,7 +64,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wNC-PR-rLx">
-                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                            <rect key="frame" x="8" y="8" width="184" height="184"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="200" id="KLO-SF-2GC"/>
                                                 <constraint firstAttribute="height" constant="200" id="lNq-DQ-rSL"/>
@@ -78,18 +78,14 @@
                                     <constraints>
                                         <constraint firstItem="mQk-82-FGA" firstAttribute="centerY" secondItem="1TZ-FQ-dlE" secondAttribute="centerY" id="217-YF-HVN"/>
                                         <constraint firstItem="mQk-82-FGA" firstAttribute="leading" secondItem="1TZ-FQ-dlE" secondAttribute="leading" id="4dp-Qu-Ml0"/>
-                                        <constraint firstItem="wNC-PR-rLx" firstAttribute="leading" secondItem="1TZ-FQ-dlE" secondAttribute="leading" id="7wD-ec-NGZ"/>
-                                        <constraint firstItem="wNC-PR-rLx" firstAttribute="top" secondItem="1TZ-FQ-dlE" secondAttribute="top" id="8uV-X6-vPZ"/>
-                                        <constraint firstItem="wNC-PR-rLx" firstAttribute="top" secondItem="1TZ-FQ-dlE" secondAttribute="top" id="9H3-Eb-HNS"/>
-                                        <constraint firstAttribute="bottom" secondItem="wNC-PR-rLx" secondAttribute="bottom" id="A3b-Fa-VQz"/>
+                                        <constraint firstItem="wNC-PR-rLx" firstAttribute="top" secondItem="1TZ-FQ-dlE" secondAttribute="top" constant="8" id="Eih-4O-2lp"/>
                                         <constraint firstAttribute="bottom" secondItem="mQk-82-FGA" secondAttribute="bottom" id="HKV-mi-O4h"/>
-                                        <constraint firstAttribute="trailing" secondItem="wNC-PR-rLx" secondAttribute="trailing" id="Nl3-lj-StD"/>
+                                        <constraint firstAttribute="bottom" secondItem="wNC-PR-rLx" secondAttribute="bottom" constant="8" id="Lz4-Wa-jO8"/>
                                         <constraint firstItem="mQk-82-FGA" firstAttribute="centerX" secondItem="1TZ-FQ-dlE" secondAttribute="centerX" id="Po9-UL-ers"/>
                                         <constraint firstItem="mQk-82-FGA" firstAttribute="top" secondItem="1TZ-FQ-dlE" secondAttribute="top" id="Raz-B2-PS3"/>
-                                        <constraint firstItem="wNC-PR-rLx" firstAttribute="leading" secondItem="1TZ-FQ-dlE" secondAttribute="leading" id="SCj-O1-lf1"/>
-                                        <constraint firstAttribute="trailing" secondItem="wNC-PR-rLx" secondAttribute="trailing" id="VKB-Cy-yyI"/>
+                                        <constraint firstItem="wNC-PR-rLx" firstAttribute="leading" secondItem="1TZ-FQ-dlE" secondAttribute="leading" constant="8" id="hPu-mm-9S3"/>
+                                        <constraint firstAttribute="trailing" secondItem="wNC-PR-rLx" secondAttribute="trailing" constant="8" id="mr0-lx-Q6c"/>
                                         <constraint firstAttribute="trailing" secondItem="mQk-82-FGA" secondAttribute="trailing" id="vY1-2D-q0u"/>
-                                        <constraint firstAttribute="bottom" secondItem="wNC-PR-rLx" secondAttribute="bottom" id="vh0-hf-bow"/>
                                     </constraints>
                                 </collectionViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
