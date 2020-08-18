@@ -18,6 +18,21 @@ class ImageGalleryViewController: UICollectionViewController, UICollectionViewDr
         collectionView.delegate = self
         collectionView.dragDelegate = self
         collectionView.dropDelegate = self
+        
+        let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(pinchCollection(recognizer:)))
+        collectionView.addGestureRecognizer(pinchGestureRecognizer)
+    }
+    
+    // MARK: - Gesture
+    
+    @objc private func pinchCollection(recognizer: UIPinchGestureRecognizer) {
+        switch recognizer.state {
+        case .changed, .ended:
+            fixedWidth *= Double(recognizer.scale)
+            recognizer.scale = 1.0
+        default:
+            return
+        }
     }
     
     // MARK: - Model
@@ -51,7 +66,15 @@ class ImageGalleryViewController: UICollectionViewController, UICollectionViewDr
     
     // MARK: - UICollectionViewFlowLayout
     
-    private var fixedWidth: Double = 200
+    var flowLayout: UICollectionViewFlowLayout? {
+        return collectionView?.collectionViewLayout as? UICollectionViewFlowLayout
+    }
+    
+    private var fixedWidth: Double = 200 {
+        didSet {
+            flowLayout?.invalidateLayout()
+        }
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let aspectRatio = gallery.images[indexPath.item].aspectRatio
