@@ -10,5 +10,6 @@ import Foundation
 struct IGImage {
     
     var url: URL
+    var aspectRatio: Double
     
 }

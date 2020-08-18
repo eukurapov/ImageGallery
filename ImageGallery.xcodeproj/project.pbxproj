@@ -15,6 +15,7 @@
 		444DA41C24E6D08B00E226F6 /* ImageGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444DA41B24E6D08B00E226F6 /* ImageGalleryViewController.swift */; };
 		4488828924EBDE65003003AB /* IGImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4488828824EBDE65003003AB /* IGImage.swift */; };
 		4488828D24EBDF14003003AB /* IGGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4488828C24EBDF14003003AB /* IGGallery.swift */; };
+		4488828F24EC3DEA003003AB /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4488828E24EC3DEA003003AB /* Utilities.swift */; };
 		44DB617524E6D5C6006B8814 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DB617424E6D5C6006B8814 /* ImageCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		444DA41B24E6D08B00E226F6 /* ImageGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryViewController.swift; sourceTree = "<group>"; };
 		4488828824EBDE65003003AB /* IGImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGImage.swift; sourceTree = "<group>"; };
 		4488828C24EBDF14003003AB /* IGGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGallery.swift; sourceTree = "<group>"; };
+		4488828E24EC3DEA003003AB /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		44DB617424E6D5C6006B8814 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,6 +77,7 @@
 		4488828A24EBDE7E003003AB /* Supportive Files */ = {
 			isa = PBXGroup;
 			children = (
+				4488828E24EC3DEA003003AB /* Utilities.swift */,
 				444DA40724E6B1C900E226F6 /* AppDelegate.swift */,
 				444DA40924E6B1C900E226F6 /* SceneDelegate.swift */,
 				444DA41024E6B1CB00E226F6 /* Assets.xcassets */,
@@ -164,6 +167,7 @@
 			files = (
 				444DA40824E6B1C900E226F6 /* AppDelegate.swift in Sources */,
 				444DA40A24E6B1C900E226F6 /* SceneDelegate.swift in Sources */,
+				4488828F24EC3DEA003003AB /* Utilities.swift in Sources */,
 				4488828D24EBDF14003003AB /* IGGallery.swift in Sources */,
 				44DB617524E6D5C6006B8814 /* ImageCollectionViewCell.swift in Sources */,
 				4488828924EBDE65003003AB /* IGImage.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ImageGalleryViewController: UICollectionViewController, UICollectionViewDragDelegate, UICollectionViewDropDelegate {
+class ImageGalleryViewController: UICollectionViewController, UICollectionViewDragDelegate, UICollectionViewDropDelegate, UICollectionViewDelegateFlowLayout {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +47,15 @@ class ImageGalleryViewController: UICollectionViewController, UICollectionViewDr
             imageCell.url = image.url
         }
         return cell
+    }
+    
+    // MARK: - UICollectionViewFlowLayout
+    
+    private var fixedWidth: Double = 200
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let aspectRatio = gallery.images[indexPath.item].aspectRatio
+        return CGSize(width: fixedWidth, height: fixedWidth / aspectRatio)
     }
     
     // MARK: - UICollectionViewDragDelegate
@@ -91,16 +100,21 @@ class ImageGalleryViewController: UICollectionViewController, UICollectionViewDr
                     coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
                 }
             } else {
-                let placeholderContext = coordinator.drop(item.dragItem, to: UICollectionViewDropPlaceholder(insertionIndexPath: destinationIndexPath, reuseIdentifier: self.placeholderReuseIdentifier))
+                var dragImageRatio: Double?
+                
+                item.dragItem.itemProvider.loadObject(ofClass: UIImage.self) { (provider, error) in
+                    if let image = provider as? UIImage {
+                        dragImageRatio = Double(image.size.width) / Double(image.size.height)
+                    }
+                }
+                
                 item.dragItem.itemProvider.loadObject(ofClass: NSURL.self) { (provider, error) in
-                    DispatchQueue.main.async {
-                        if let url = provider as? URL {
-                            print(url)
+                    if let url = provider as? URL, let dragImageRatio = dragImageRatio {
+                        DispatchQueue.main.async {
+                            let placeholderContext = coordinator.drop(item.dragItem, to: UICollectionViewDropPlaceholder(insertionIndexPath: destinationIndexPath, reuseIdentifier: self.placeholderReuseIdentifier))
                             placeholderContext.commitInsertion { indexPath in
-                                self.gallery.images.insert(IGImage(url: url), at: indexPath.item)
+                                self.gallery.images.insert(IGImage(url: url.imageURL, aspectRatio: dragImageRatio), at: indexPath.item)
                             }
-                        } else {
-                            placeholderContext.deletePlaceholder()
                         }
                     }
                 }

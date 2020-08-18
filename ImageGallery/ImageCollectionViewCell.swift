@@ -28,8 +28,8 @@ class ImageCollectionViewCell: UICollectionViewCell {
                 DispatchQueue.main.async {
                     if urlToFetch == self.url {
                         if data != nil, let image = UIImage(data: data!) {
-                            self.imageView.image = image
                             self.activityIndicator.stopAnimating()
+                            self.imageView.image = image
                         }
                     }
                 }
