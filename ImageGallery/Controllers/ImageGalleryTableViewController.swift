@@ -14,39 +14,82 @@ class ImageGalleryTableViewController: UITableViewController {
         IGGallery(name: "Cats"),
         IGGallery(name: "Untitled")
     ]
+    
+    var activeGalleries:[IGGallery] {
+        galleries.filter { $0.isActive }
+    }
+    
+    var removedGalleries:[IGGallery] {
+        galleries.filter { !$0.isActive }
+    }
 
     @IBAction func newGalley(_ sender: UIBarButtonItem) {
         galleries.append(IGGallery(name: "Untitled".madeUnique(withRespectTo: galleries.map { $0.name })))
         tableView.reloadData()
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
 
     // MARK: - Table view data source
 
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0: return "Active Galleries"
+        case 1: return "Recently Removed"
+        default: return nil
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return galleries.count
+        switch section {
+        case 0: return activeGalleries.count
+        case 1: return removedGalleries.count
+        default: return 0
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath)
-        cell.textLabel?.text = galleries[indexPath.row].name
+        switch indexPath.section {
+        case 0: cell.textLabel?.text = activeGalleries[indexPath.row].name
+        case 1: cell.textLabel?.text = removedGalleries[indexPath.row].name
+        default: break
+        }
         return cell
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            galleries.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            switch indexPath.section {
+            case 0:
+                let gallery = activeGalleries[indexPath.row]
+                gallery.remove()
+                let destinationIndexPath = IndexPath(row: removedGalleries.firstIndex { $0 === gallery } ?? 0, section: 1)
+                tableView.moveRow(at: indexPath, to: destinationIndexPath)
+            case 1:
+                let gallery = removedGalleries[indexPath.row]
+                galleries.removeAll { $0 === gallery }
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            default: return
+            }
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        if indexPath.section == 1 {
+            return UISwipeActionsConfiguration(actions: [
+                UIContextualAction(style: .normal, title: "Restore", handler: { _,_,completion in
+                    let gallery = self.removedGalleries[indexPath.row]
+                    gallery.restore()
+                    let destinationIndexPath = IndexPath(row: self.activeGalleries.firstIndex { $0 === gallery } ?? 0, section: 0)
+                    tableView.moveRow(at: indexPath, to: destinationIndexPath)
+                    completion(true)
+                })
+            ])
+        }
+        return nil
     }
 
     // MARK: - Navigation
@@ -63,6 +106,14 @@ class ImageGalleryTableViewController: UITableViewController {
                 }
             }
         }
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if let cell = sender as? UITableViewCell,
+            let indexPath = tableView.indexPath(for: cell) {
+            return indexPath.section == 0
+        }
+        return true
     }
     
     // MARK: - Constant Values

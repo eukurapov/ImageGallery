@@ -19,6 +19,8 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
         
         let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(pinchCollection(recognizer:)))
         collectionView.addGestureRecognizer(pinchGestureRecognizer)
+        
+        navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
     }
     
     override func viewWillLayoutSubviews() {

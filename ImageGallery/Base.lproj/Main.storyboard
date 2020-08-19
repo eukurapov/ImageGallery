@@ -7,11 +7,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Image Gallery-->
+        <!--Image Gallery Collection View Controller-->
         <scene sceneID="Kqm-4s-7XN">
             <objects>
                 <collectionViewController id="rZE-qu-aMO" customClass="ImageGalleryCollectionViewController" customModule="ImageGallery" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="TopLeft" dataMode="prototypes" id="mlH-b9-YRV">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="mlH-b9-YRV">
                         <rect key="frame" x="0.0" y="0.0" width="703.5" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -75,13 +75,13 @@
                             <outlet property="delegate" destination="rZE-qu-aMO" id="gqd-5h-SWM"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Image Gallery" id="Inn-PS-H96"/>
+                    <navigationItem key="navigationItem" id="Inn-PS-H96"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FKF-h9-9kY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-870" y="830"/>
         </scene>
-        <!--Galleries-->
+        <!--Image Gallery Table View Controller-->
         <scene sceneID="WRC-Ur-osa">
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="GPz-71-ERh" customClass="ImageGalleryTableViewController" customModule="ImageGallery" customModuleProvider="target" sceneMemberID="viewController">
@@ -116,7 +116,7 @@
                             <outlet property="delegate" destination="GPz-71-ERh" id="ehY-CT-08F"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Galleries" id="8Bh-3U-Nj5">
+                    <navigationItem key="navigationItem" id="8Bh-3U-Nj5">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="BOy-kk-lM1">
                             <connections>
                                 <action selector="newGalley:" destination="GPz-71-ERh" id="v7k-U1-DoJ"/>
