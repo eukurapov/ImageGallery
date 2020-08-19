@@ -1,5 +1,5 @@
 //
-//  ImageGalleryViewController.swift
+//  ImageGalleryCollectionViewController.swift
 //  ImageGallery
 //
 //  Created by Evgeniy Kurapov on 14.08.2020.
@@ -7,12 +7,10 @@
 
 import UIKit
 
-class ImageGalleryViewController: UICollectionViewController, UICollectionViewDragDelegate, UICollectionViewDropDelegate, UICollectionViewDelegateFlowLayout {
+class ImageGalleryCollectionViewController: UICollectionViewController, UICollectionViewDragDelegate, UICollectionViewDropDelegate, UICollectionViewDelegateFlowLayout {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        title = gallery.name
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -21,6 +19,13 @@ class ImageGalleryViewController: UICollectionViewController, UICollectionViewDr
         
         let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(pinchCollection(recognizer:)))
         collectionView.addGestureRecognizer(pinchGestureRecognizer)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        if splitViewController?.preferredDisplayMode != .primaryOverlay {
+            splitViewController?.preferredDisplayMode = .primaryOverlay
+        }
     }
     
     // MARK: - Gesture
@@ -37,7 +42,12 @@ class ImageGalleryViewController: UICollectionViewController, UICollectionViewDr
     
     // MARK: - Model
     
-    var gallery = IGGallery(name: "Unnamed")
+    var gallery = IGGallery(name: "Unnamed") {
+        didSet {
+            title = gallery.name
+            collectionView.reloadData()
+        }
+    }
 
     /*
     // MARK: - Navigation

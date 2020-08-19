@@ -7,9 +7,13 @@
 
 import Foundation
 
-struct IGGallery {
+class IGGallery {
     
     var name: String
     var images = [IGImage]()
+    
+    init(name: String) {
+        self.name = name
+    }
     
 }
