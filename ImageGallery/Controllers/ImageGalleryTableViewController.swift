@@ -31,7 +31,7 @@ class ImageGalleryTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return removedGalleries.isEmpty ? 1 : 2
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -52,10 +52,21 @@ class ImageGalleryTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath)
-        switch indexPath.section {
-        case 0: cell.textLabel?.text = activeGalleries[indexPath.row].name
-        case 1: cell.textLabel?.text = removedGalleries[indexPath.row].name
-        default: break
+        if let cell = cell as? EditableTableViewCell {
+            switch indexPath.section {
+            case 0:
+                let gallery = activeGalleries[indexPath.row]
+                cell.galleryName?.text = gallery.name
+                cell.editHandler = { [weak self, unowned gallery] in
+                    if let newName = cell.galleryName.text {
+                        gallery.name = newName
+                        self?.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    }
+                }
+            case 1:
+                cell.galleryName?.text = removedGalleries[indexPath.row].name
+            default: break
+            }
         }
         return cell
     }
@@ -66,12 +77,20 @@ class ImageGalleryTableViewController: UITableViewController {
             case 0:
                 let gallery = activeGalleries[indexPath.row]
                 gallery.remove()
-                let destinationIndexPath = IndexPath(row: removedGalleries.firstIndex { $0 === gallery } ?? 0, section: 1)
-                tableView.moveRow(at: indexPath, to: destinationIndexPath)
+                if removedGalleries.count == 1 {
+                    tableView.reloadData()
+                } else {
+                    let destinationIndexPath = IndexPath(row: removedGalleries.firstIndex { $0 === gallery } ?? 0, section: 1)
+                    tableView.moveRow(at: indexPath, to: destinationIndexPath)
+                }
             case 1:
                 let gallery = removedGalleries[indexPath.row]
                 galleries.removeAll { $0 === gallery }
-                tableView.deleteRows(at: [indexPath], with: .automatic)
+                if self.removedGalleries.isEmpty {
+                    tableView.reloadData()
+                } else {
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                }
             default: return
             }
         }
@@ -83,8 +102,12 @@ class ImageGalleryTableViewController: UITableViewController {
                 UIContextualAction(style: .normal, title: "Restore", handler: { _,_,completion in
                     let gallery = self.removedGalleries[indexPath.row]
                     gallery.restore()
-                    let destinationIndexPath = IndexPath(row: self.activeGalleries.firstIndex { $0 === gallery } ?? 0, section: 0)
-                    tableView.moveRow(at: indexPath, to: destinationIndexPath)
+                    if self.removedGalleries.isEmpty {
+                        tableView.reloadData()
+                    } else {
+                        let destinationIndexPath = IndexPath(row: self.activeGalleries.firstIndex { $0 === gallery } ?? 0, section: 0)
+                        tableView.moveRow(at: indexPath, to: destinationIndexPath)
+                    }
                     completion(true)
                 })
             ])

@@ -18,6 +18,7 @@
 		4488828F24EC3DEA003003AB /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4488828E24EC3DEA003003AB /* Utilities.swift */; };
 		4488829124ED38F8003003AB /* ImageGalleryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4488829024ED38F8003003AB /* ImageGalleryTableViewController.swift */; };
 		44DB617524E6D5C6006B8814 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DB617424E6D5C6006B8814 /* ImageCollectionViewCell.swift */; };
+		44F0B42224ED8E3E00C0C8C0 /* EditableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F0B42124ED8E3E00C0C8C0 /* EditableTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		4488828E24EC3DEA003003AB /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		4488829024ED38F8003003AB /* ImageGalleryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryTableViewController.swift; sourceTree = "<group>"; };
 		44DB617424E6D5C6006B8814 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		44F0B42124ED8E3E00C0C8C0 /* EditableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				44DB617424E6D5C6006B8814 /* ImageCollectionViewCell.swift */,
+				44F0B42124ED8E3E00C0C8C0 /* EditableTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -184,6 +187,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44F0B42224ED8E3E00C0C8C0 /* EditableTableViewCell.swift in Sources */,
 				444DA40824E6B1C900E226F6 /* AppDelegate.swift in Sources */,
 				444DA40A24E6B1C900E226F6 /* SceneDelegate.swift in Sources */,
 				4488829124ED38F8003003AB /* ImageGalleryTableViewController.swift in Sources */,

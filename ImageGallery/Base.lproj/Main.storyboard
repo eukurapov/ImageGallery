@@ -90,23 +90,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GalleryCell" textLabel="djU-Zi-XAG" style="IBUITableViewCellStyleDefault" id="GeK-fA-Ik6">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GalleryCell" id="GeK-fA-Ik6" customClass="EditableTableViewCell" customModule="ImageGallery" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="320" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GeK-fA-Ik6" id="c7b-Sf-KzJ">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="djU-Zi-XAG">
-                                            <rect key="frame" x="16" y="0.0" width="288" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Gallery Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fi2-So-Kwb">
+                                            <rect key="frame" x="16" y="4" width="288" height="35.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="35" id="AA0-KW-gJX"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="fi2-So-Kwb" firstAttribute="top" secondItem="c7b-Sf-KzJ" secondAttribute="top" constant="4" id="1pY-4q-BsA"/>
+                                        <constraint firstAttribute="trailing" secondItem="fi2-So-Kwb" secondAttribute="trailing" constant="16" id="3rh-Aa-4OD"/>
+                                        <constraint firstAttribute="bottom" secondItem="fi2-So-Kwb" secondAttribute="bottom" constant="4" id="8Em-hf-xUu"/>
+                                        <constraint firstItem="fi2-So-Kwb" firstAttribute="leading" secondItem="c7b-Sf-KzJ" secondAttribute="leading" constant="16" id="Gly-AO-XY4"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="galleryName" destination="fi2-So-Kwb" id="gbQ-l3-ghF"/>
                                     <segue destination="8v4-5Q-c1L" kind="showDetail" identifier="ShowGallery" id="Qs1-Oo-rPM"/>
                                 </connections>
                             </tableViewCell>
@@ -126,7 +134,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hbj-Ew-6KY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-864" y="16"/>
+            <point key="canvasLocation" x="-864.2578125" y="15.625"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ta3-F4-nCa">
