@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -50,6 +51,7 @@
                                 <connections>
                                     <outlet property="activityIndicator" destination="KNn-Ri-lAD" id="4lE-vT-D8h"/>
                                     <outlet property="imageView" destination="4YB-XK-INv" id="sSP-d6-D0D"/>
+                                    <segue destination="7Yl-az-C1Q" kind="show" identifier="ShowImage" id="5b5-Gu-v0R"/>
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PlaceholderCell" id="jkt-jD-aDx">
@@ -80,6 +82,43 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FKF-h9-9kY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-870" y="830"/>
+        </scene>
+        <!--Full Image View Controller-->
+        <scene sceneID="sBd-Jr-sHy">
+            <objects>
+                <viewController id="7Yl-az-C1Q" customClass="FullImageViewController" customModule="ImageGallery" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="W8p-Df-SCv">
+                        <rect key="frame" x="0.0" y="0.0" width="703.5" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DFb-bD-Rdd">
+                                <rect key="frame" x="0.0" y="0.0" width="703.5" height="768"/>
+                            </scrollView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="ApH-ad-kpd">
+                                <rect key="frame" x="333.5" y="365.5" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="DFb-bD-Rdd" firstAttribute="leading" secondItem="W8p-Df-SCv" secondAttribute="leading" id="8Wz-Wc-1uN"/>
+                            <constraint firstAttribute="bottom" secondItem="DFb-bD-Rdd" secondAttribute="bottom" id="AZb-W9-mfc"/>
+                            <constraint firstItem="DFb-bD-Rdd" firstAttribute="top" secondItem="W8p-Df-SCv" secondAttribute="top" id="TTx-bq-LTf"/>
+                            <constraint firstItem="DFb-bD-Rdd" firstAttribute="centerX" secondItem="8Sq-TS-iE8" secondAttribute="centerX" id="auv-3W-GTm"/>
+                            <constraint firstAttribute="trailing" secondItem="DFb-bD-Rdd" secondAttribute="trailing" id="cEk-DT-JZI"/>
+                            <constraint firstItem="DFb-bD-Rdd" firstAttribute="centerY" secondItem="8Sq-TS-iE8" secondAttribute="centerY" constant="-25" id="mM6-fY-2Jv"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="8Sq-TS-iE8"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="UA7-Ba-Xdk"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="ApH-ad-kpd" id="ebF-H5-wfg"/>
+                        <outlet property="scrollView" destination="DFb-bD-Rdd" id="D7q-5l-Vnw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZzF-4s-HRE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-140.0390625" y="829.6875"/>
         </scene>
         <!--Image Gallery Table View Controller-->
         <scene sceneID="WRC-Ur-osa">
