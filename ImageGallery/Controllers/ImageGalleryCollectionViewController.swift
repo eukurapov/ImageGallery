@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ImageGalleryCollectionViewController: UICollectionViewController, UICollectionViewDragDelegate, UICollectionViewDropDelegate, UICollectionViewDelegateFlowLayout {
+class ImageGalleryCollectionViewController: UICollectionViewController, UICollectionViewDragDelegate, UICollectionViewDropDelegate, UICollectionViewDelegateFlowLayout, UIDropInteractionDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +19,12 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
         
         let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(pinchCollection(recognizer:)))
         collectionView.addGestureRecognizer(pinchGestureRecognizer)
+        
+        let trashImage = UIImage(systemName: "trash")
+        let trashView = UIImageView(image: trashImage)
+        let dropInteraction = UIDropInteraction(delegate: self)
+        trashView.addInteraction(dropInteraction)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: trashView)
         
         navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
     }
@@ -102,7 +108,7 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
         session.localContext = collectionView
         if let image = (collectionView.cellForItem(at: indexPath) as? ImageCollectionViewCell)?.imageView.image {
             let dragItem = UIDragItem(itemProvider: NSItemProvider(object: image))
-            dragItem.localObject = gallery.images[indexPath.item]
+            dragItem.localObject = (image: gallery.images[indexPath.item], indexPath: indexPath)
             return [dragItem]
         }
         return []
@@ -128,7 +134,7 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
         let destinationIndexPath = coordinator.destinationIndexPath ?? IndexPath(item: 0, section: 0)
         for item in coordinator.items {
             if let sourceIndexPath = item.sourceIndexPath {
-                if let image = item.dragItem.localObject as? IGImage {
+                if let image = (item.dragItem.localObject as? (IGImage, IndexPath))?.0 {
                     collectionView.performBatchUpdates({
                         gallery.images.remove(at: sourceIndexPath.item)
                         gallery.images.insert(image, at: destinationIndexPath.item)
@@ -157,6 +163,51 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
                     }
                 }
             }
+        }
+    }
+    
+    // MARK: - UIDropInteractionDelegate
+    
+    func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
+        return session.localDragSession != nil
+    }
+    
+    func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
+        return session.localDragSession != nil ? UIDropProposal(operation: .copy) : UIDropProposal(operation: .forbidden)
+    }
+    
+    func dropInteraction(_ interaction: UIDropInteraction, sessionDidExit session: UIDropSession) {
+        if let imageView = interaction.view as? UIImageView {
+            imageView.tintColor = .systemBlue
+        }
+    }
+    
+    func dropInteraction(_ interaction: UIDropInteraction, sessionDidEnd session: UIDropSession) {
+        if let imageView = interaction.view as? UIImageView {
+            imageView.tintColor = .systemBlue
+        }
+    }
+    
+    func dropInteraction(_ interaction: UIDropInteraction, sessionDidEnter session: UIDropSession) {
+        if let imageView = interaction.view as? UIImageView {
+            imageView.tintColor = .red
+        }
+    }
+    
+    func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
+        var itemsToRemove: [IndexPath] = []
+        for item in session.items {
+            if let indexPath = (item.localObject as? (IGImage, IndexPath))?.1 {
+                itemsToRemove.append(indexPath)
+            }
+        }
+        if !itemsToRemove.isEmpty {
+            collectionView.performBatchUpdates({
+                for indexPath in itemsToRemove {
+                    gallery.images.remove(at: indexPath.item)
+                }
+                collectionView.deleteItems(at: itemsToRemove)
+            })
         }
     }
     
