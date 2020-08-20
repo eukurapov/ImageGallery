@@ -20,6 +20,7 @@
 		44DB617524E6D5C6006B8814 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DB617424E6D5C6006B8814 /* ImageCollectionViewCell.swift */; };
 		44F0B42224ED8E3E00C0C8C0 /* EditableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F0B42124ED8E3E00C0C8C0 /* EditableTableViewCell.swift */; };
 		44F0B42424ED9A5300C0C8C0 /* FullImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F0B42324ED9A5300C0C8C0 /* FullImageViewController.swift */; };
+		44F0B42624EEBF4F00C0C8C0 /* FetchedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F0B42524EEBF4F00C0C8C0 /* FetchedImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		44DB617424E6D5C6006B8814 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		44F0B42124ED8E3E00C0C8C0 /* EditableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableTableViewCell.swift; sourceTree = "<group>"; };
 		44F0B42324ED9A5300C0C8C0 /* FullImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageViewController.swift; sourceTree = "<group>"; };
+		44F0B42524EEBF4F00C0C8C0 /* FetchedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 			children = (
 				44DB617424E6D5C6006B8814 /* ImageCollectionViewCell.swift */,
 				44F0B42124ED8E3E00C0C8C0 /* EditableTableViewCell.swift */,
+				44F0B42524EEBF4F00C0C8C0 /* FetchedImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 				44F0B42224ED8E3E00C0C8C0 /* EditableTableViewCell.swift in Sources */,
 				444DA40824E6B1C900E226F6 /* AppDelegate.swift in Sources */,
 				444DA40A24E6B1C900E226F6 /* SceneDelegate.swift in Sources */,
+				44F0B42624EEBF4F00C0C8C0 /* FetchedImageView.swift in Sources */,
 				4488829124ED38F8003003AB /* ImageGalleryTableViewController.swift in Sources */,
 				4488828F24EC3DEA003003AB /* Utilities.swift in Sources */,
 				44F0B42424ED9A5300C0C8C0 /* FullImageViewController.swift in Sources */,

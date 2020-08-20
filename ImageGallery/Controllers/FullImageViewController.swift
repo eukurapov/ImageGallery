@@ -16,52 +16,25 @@ class FullImageViewController: UIViewController, UIScrollViewDelegate {
             scrollView.maximumZoomScale = 2.0
             scrollView.delegate = self
             scrollView.addSubview(imageView)
+            imageView.activityIndicator = activityIndicator
+            imageView.completionHandler = { [weak self] in
+                self?.imageView.sizeToFit()
+                self?.scrollView?.contentSize = self!.imageView.frame.size
+            }
         }
     }
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     var url: URL? {
-        didSet {
-            if url != oldValue, view.window != nil {
-                fetchImage()
-            }
-        }
-    }
-    
-    private var imageView = UIImageView()
-    
-    var image: UIImage? {
         get {
-            return imageView.image
+            return imageView.url
         }
-        set(newImage) {
-            imageView.image = newImage
-            imageView.sizeToFit()
-            scrollView?.contentSize = imageView.frame.size
+        set {
+            imageView.url = newValue
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        fetchImage()
-    }
-    
-    private func fetchImage() {
-        image = nil
-        if let urlToFetch = self.url {
-            activityIndicator.startAnimating()
-            URLSession.shared.dataTask(with: urlToFetch) { (data, response, error) in
-                DispatchQueue.main.async {
-                    if urlToFetch == self.url {
-                        if data != nil, let image = UIImage(data: data!) {
-                            self.activityIndicator.stopAnimating()
-                            self.image = image
-                        }
-                    }
-                }
-            }.resume()
-        }
-    }
+    private var imageView = FetchedImageView()
     
     // MARK: - UIScrollViewDelegate
     
