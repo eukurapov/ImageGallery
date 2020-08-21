@@ -25,8 +25,6 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
         let dropInteraction = UIDropInteraction(delegate: self)
         trashView.addInteraction(dropInteraction)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: trashView)
-        
-        navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
     }
     
     override func viewWillLayoutSubviews() {
@@ -39,6 +37,7 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         splitViewController?.presentsWithGesture = true
+        navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
     }
     
     // MARK: - Gesture
