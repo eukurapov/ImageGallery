@@ -153,11 +153,12 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
                 }
                 
                 item.dragItem.itemProvider.loadObject(ofClass: NSURL.self) { (provider, error) in
-                    if let url = provider as? URL, let dragImageRatio = dragImageRatio {
+                    if let url = provider as? URL, let dragImageRatio = dragImageRatio,
+                        let image = IGImage(url: url.imageURL, aspectRatio: dragImageRatio) {
                         DispatchQueue.main.async {
                             let placeholderContext = coordinator.drop(item.dragItem, to: UICollectionViewDropPlaceholder(insertionIndexPath: destinationIndexPath, reuseIdentifier: self.placeholderReuseIdentifier))
                             placeholderContext.commitInsertion { indexPath in
-                                self.gallery.images.insert(IGImage(url: url.imageURL, aspectRatio: dragImageRatio), at: indexPath.item)
+                                self.gallery.images.insert(image, at: indexPath.item)
                             }
                         }
                     }

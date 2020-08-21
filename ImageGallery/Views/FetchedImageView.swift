@@ -24,15 +24,31 @@ class FetchedImageView: UIImageView {
             URLSession.shared.dataTask(with: urlToFetch) { (data, response, error) in
                 DispatchQueue.main.async {
                     if urlToFetch == self.url {
-                        if data != nil, let fetchedImage = UIImage(data: data!) {
-                            self.activityIndicator?.stopAnimating()
+                        self.activityIndicator?.stopAnimating()
+                        if error == nil, data != nil, let fetchedImage = UIImage(data: data!) {
                             self.image = fetchedImage
-                            self.completionHandler?()
+                        }  else {
+                            self.contentMode = .center
+                            let errorImage = UIImage(systemName: "xmark.octagon")?.withTintColor(.red).resized(for: CGSize(width: 40, height: 36))
+                            self.center = self.superview?.center ?? self.center
+                            self.image = errorImage
                         }
+                        self.completionHandler?()
                     }
                 }
             }.resume()
         }
     }
 
+}
+
+extension UIImage {
+    
+    func resized(for size: CGSize) -> UIImage? {
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { (context) in
+            self.draw(in: CGRect(origin: .zero, size: size))
+        }
+    }
+    
 }

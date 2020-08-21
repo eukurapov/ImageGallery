@@ -149,7 +149,7 @@ class ImageGalleryTableViewController: UITableViewController {
             if let collectionView = segue.destination.contents as? ImageGalleryCollectionViewController {
                 if let cell = sender as? UITableViewCell,
                     let indexPath = tableView.indexPath(for: cell) {
-                    let gallery = galleries[indexPath.row]
+                    let gallery = activeGalleries[indexPath.row]
                     collectionView.gallery = gallery
                 }
             }
