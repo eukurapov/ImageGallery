@@ -28,8 +28,7 @@ class EditableTableViewCell: UITableViewCell, UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         galleryName.isEnabled = false
-        galleryName.resignFirstResponder()
-        return true
+        return galleryName.resignFirstResponder()
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

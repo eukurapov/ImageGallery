@@ -35,9 +35,25 @@ class ImageGalleryTableViewController: UITableViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if tableView.indexPathForSelectedRow == nil && !activeGalleries.isEmpty {
+            selectRow(at: IndexPath(row: 0, section: 0))
+        }
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         saveGalleriesToUserDefaults()
+    }
+    
+    private var selectRowTimer: Timer?
+    private func selectRow(at indexPath: IndexPath, withInterval interval: TimeInterval = 0) {
+        selectRowTimer?.invalidate()
+        selectRowTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: false) { [weak self] timer in
+            self?.tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+            self?.performSegue(withIdentifier: self!.gallerySegueIdentifier, sender: self?.tableView.cellForRow(at: indexPath))
+        }
     }
     
     // MARK: - UserDefaults
@@ -86,6 +102,7 @@ class ImageGalleryTableViewController: UITableViewController {
                     if let newName = cell.galleryName.text {
                         gallery.name = newName
                         self?.tableView.reloadRows(at: [indexPath], with: .automatic)
+                        self?.selectRow(at: indexPath, withInterval: 0.6)
                     }
                 }
             case 1:
@@ -96,6 +113,7 @@ class ImageGalleryTableViewController: UITableViewController {
         return cell
     }
 
+    private var selectedRowIndexPath: IndexPath?
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             switch indexPath.section {
@@ -107,6 +125,9 @@ class ImageGalleryTableViewController: UITableViewController {
                 } else {
                     let destinationIndexPath = IndexPath(row: removedGalleries.firstIndex { $0 === gallery } ?? 0, section: 1)
                     tableView.moveRow(at: indexPath, to: destinationIndexPath)
+                }
+                if selectedRowIndexPath == indexPath && indexPath.row > 0 {
+                    selectRow(at: IndexPath(row: indexPath.row - 1, section: indexPath.section), withInterval: 1)
                 }
             case 1:
                 let gallery = removedGalleries[indexPath.row]
@@ -127,19 +148,24 @@ class ImageGalleryTableViewController: UITableViewController {
                 UIContextualAction(style: .normal, title: "Restore", handler: { _,_,completion in
                     let gallery = self.removedGalleries[indexPath.row]
                     gallery.restore()
+                    let destinationIndexPath = IndexPath(row: self.activeGalleries.firstIndex { $0 === gallery } ?? 0, section: 0)
                     if self.removedGalleries.isEmpty {
                         tableView.reloadData()
                     } else {
-                        let destinationIndexPath = IndexPath(row: self.activeGalleries.firstIndex { $0 === gallery } ?? 0, section: 0)
                         tableView.moveRow(at: indexPath, to: destinationIndexPath)
                     }
+                    self.selectRow(at: destinationIndexPath, withInterval: 1)
                     completion(true)
                 })
             ])
         }
         return nil
     }
-
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedRowIndexPath = indexPath
+    }
+    
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
