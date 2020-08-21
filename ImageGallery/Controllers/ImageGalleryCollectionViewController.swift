@@ -36,6 +36,11 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        splitViewController?.presentsWithGesture = true
+    }
+    
     // MARK: - Gesture
     
     @objc private func pinchCollection(recognizer: UIPinchGestureRecognizer) {

@@ -12,8 +12,8 @@ class ImageCollectionViewCell: UICollectionViewCell {
     var url: URL? {
         get { imageView.url }
         set {
-            imageView.activityIndicator = activityIndicator
             imageView.url = newValue
+            imageView.fetchImage()
         }
     }
     

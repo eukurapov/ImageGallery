@@ -94,10 +94,6 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DFb-bD-Rdd">
                                 <rect key="frame" x="0.0" y="0.0" width="703.5" height="768"/>
                             </scrollView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="ApH-ad-kpd">
-                                <rect key="frame" x="333.5" y="365.5" width="37" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -106,13 +102,12 @@
                             <constraint firstItem="DFb-bD-Rdd" firstAttribute="top" secondItem="W8p-Df-SCv" secondAttribute="top" id="TTx-bq-LTf"/>
                             <constraint firstItem="DFb-bD-Rdd" firstAttribute="centerX" secondItem="8Sq-TS-iE8" secondAttribute="centerX" id="auv-3W-GTm"/>
                             <constraint firstAttribute="trailing" secondItem="DFb-bD-Rdd" secondAttribute="trailing" id="cEk-DT-JZI"/>
-                            <constraint firstItem="DFb-bD-Rdd" firstAttribute="centerY" secondItem="8Sq-TS-iE8" secondAttribute="centerY" constant="-25" id="mM6-fY-2Jv"/>
+                            <constraint firstItem="DFb-bD-Rdd" firstAttribute="centerY" secondItem="W8p-Df-SCv" secondAttribute="centerY" id="mM6-fY-2Jv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8Sq-TS-iE8"/>
                     </view>
                     <navigationItem key="navigationItem" id="UA7-Ba-Xdk"/>
                     <connections>
-                        <outlet property="activityIndicator" destination="ApH-ad-kpd" id="ebF-H5-wfg"/>
                         <outlet property="scrollView" destination="DFb-bD-Rdd" id="D7q-5l-Vnw"/>
                     </connections>
                 </viewController>
