@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct IGImage {
+struct IGImage: Codable {
     
     var url: URL
     var aspectRatio: Double

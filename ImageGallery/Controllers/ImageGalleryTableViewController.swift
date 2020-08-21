@@ -27,6 +27,31 @@ class ImageGalleryTableViewController: UITableViewController {
         galleries.append(IGGallery(name: "Untitled".madeUnique(withRespectTo: galleries.map { $0.name })))
         tableView.reloadData()
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if let jsonGalleries = loadFromUserDefaults() {
+            galleries = jsonGalleries
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        saveGalleriesToUserDefaults()
+    }
+    
+    // MARK: - UserDefaults
+    
+    private func loadFromUserDefaults() -> [IGGallery]? {
+        if let dataArray = UserDefaults.standard.array(forKey: galleriesUserDefaultsKey) as? [Data] {
+            return dataArray.compactMap { IGGallery.fromJSON($0) }
+        }
+        return nil
+    }
+    
+    private func saveGalleriesToUserDefaults() {
+        UserDefaults.standard.set(galleries.compactMap { $0.json }, forKey: galleriesUserDefaultsKey)
+    }
 
     // MARK: - Table view data source
 
@@ -143,5 +168,6 @@ class ImageGalleryTableViewController: UITableViewController {
     
     private let cellReuseIdentifier = "GalleryCell"
     private let gallerySegueIdentifier = "ShowGallery"
+    private let galleriesUserDefaultsKey = "ImageGalleries"
 
 }
